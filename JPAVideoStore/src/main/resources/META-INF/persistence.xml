@@ -11,6 +11,7 @@
 		<class>com.skilldistillery.jpavideostore.entities.Customer</class>
 		<class>com.skilldistillery.jpavideostore.entities.Film</class>
 		<class>com.skilldistillery.jpavideostore.entities.Language</class>
+		<class>com.skilldistillery.jpavideostore.entities.Rental</class>
 		<class>com.skilldistillery.jpavideostore.entities.Staff</class>
 
 		<properties>

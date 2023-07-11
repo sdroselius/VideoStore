@@ -48,5 +48,16 @@ class CustomerTest {
 		assertEquals("Smithers", cust.getLastName());
 	}
 
-
+	@Test
+	void test_Customer_temporal_mapping() {
+		assertNotNull(cust);
+		assertNotNull(cust.getCreatedAt());
+		assertEquals(2014, cust.getCreatedAt().getYear());
+		assertEquals(05, cust.getCreatedAt().getMonthValue());
+		assertEquals(25, cust.getCreatedAt().getDayOfMonth());
+		assertNotNull(cust.getLastUpdate());
+		assertEquals(2016, cust.getLastUpdate().getYear());
+		assertEquals(9, cust.getLastUpdate().getMonthValue());
+		assertEquals(16, cust.getLastUpdate().getDayOfMonth());
+	}
 }

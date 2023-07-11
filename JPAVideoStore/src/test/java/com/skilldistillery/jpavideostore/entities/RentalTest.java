@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class FilmTest {
+class RentalTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Film film;
+	private Rental rental;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,31 +31,24 @@ class FilmTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		film = em.find(Film.class, 1);
+		rental = em.find(Rental.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		film = null;
+		rental = null;
 	}
 
-//	|  1 | ACADEMY DINOSAUR | A Epic Drama... |         1993 |           3 |               6 |        0.99 |     86 |            20.99 | PG     | Deleted Scenes,Behind the Scenes |
-	@Test
-	void test_Film_entity_mapping() {
-		assertNotNull(film);
-		assertEquals("ACADEMY DINOSAUR", film.getTitle());
-		assertTrue(film.getDescription().startsWith("A Epic Drama"));
-		assertEquals(1993, film.getReleaseYear());
-		assertEquals(0.99, film.getRentalRate(), .001);
-		assertEquals(86, film.getLength());
-		assertEquals(20.99, film.getReplacementCost(), .001);
-	}
+	//|  1 | 2014-05-24 22:53:30 |        14072 |         130 | 2014-05-26 22:04:30 |       46 |
 
 	@Test
-	void test_Film_Rating_Enumerated_mapping() {
-		assertNotNull(film);
-		assertEquals(Rating.PG, film.getRating());
+	void test_Rental_entity_mapping() {
+		assertNotNull(rental);
+		assertNotNull(rental.getRentalDate());
+		assertEquals(2014, rental.getRentalDate().getYear());
+		assertEquals(05, rental.getRentalDate().getMonthValue());
+		assertNotNull(rental.getReturnDate());
 	}
-	
+
 }
