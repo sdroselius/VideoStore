@@ -6,10 +6,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import com.skilldistillery.jpavideostore.entities.Actor;
-
 public class ActorDaoImpl implements ActorDAO {
 	
-	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("VideoStore");
+	private static EntityManagerFactory emf 
+	 = Persistence.createEntityManagerFactory("VideoStore");
 
 	@Override
 	public Actor create(Actor actor) {

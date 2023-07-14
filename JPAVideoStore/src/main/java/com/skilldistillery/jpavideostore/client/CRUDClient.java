@@ -40,8 +40,8 @@ public class CRUDClient {
 		addr.setState("Colorado");
 		addr.setPostalCode("80209");
 		addr.setPhone("3035551234");
-		em.persist(addr);
 		em.getTransaction().begin();
+		em.persist(addr);
 		em.getTransaction().commit();
 	}
 
