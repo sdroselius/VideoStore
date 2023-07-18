@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Staff {
@@ -21,6 +23,14 @@ public class Staff {
 	private boolean active;
 	private String username;
 	private String password;
+	
+	@ManyToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
+
+	@ManyToOne
+	@JoinColumn(name = "store_id")
+	private Store store;
 
 	public Staff() {
 		super();
@@ -80,6 +90,22 @@ public class Staff {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Store getStore() {
+		return store;
+	}
+
+	public void setStore(Store store) {
+		this.store = store;
 	}
 
 	@Override

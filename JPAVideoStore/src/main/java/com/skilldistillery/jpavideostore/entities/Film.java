@@ -7,6 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Film {
@@ -30,6 +32,10 @@ public class Film {
 	@Enumerated(EnumType.STRING)
 	private Rating rating;
 
+	@ManyToOne
+	@JoinColumn(name = "language_id")
+	private Language language;
+	
 	public Film() {
 		super();
 	}
@@ -104,6 +110,14 @@ public class Film {
 
 	public void setRating(Rating rating) {
 		this.rating = rating;
+	}
+
+	public Language getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(Language language) {
+		this.language = language;
 	}
 
 	@Override

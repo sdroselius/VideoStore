@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class RentalTest {
-	
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private Rental rental;
@@ -40,7 +40,7 @@ class RentalTest {
 		rental = null;
 	}
 
-	//|  1 | 2014-05-24 22:53:30 |        14072 |         130 | 2014-05-26 22:04:30 |       46 |
+	// | 1 | 2014-05-24 22:53:30 | 14072 | 130 | 2014-05-26 22:04:30 | 46 |
 
 	@Test
 	void test_Rental_entity_mapping() {
@@ -49,6 +49,22 @@ class RentalTest {
 		assertEquals(2014, rental.getRentalDate().getYear());
 		assertEquals(05, rental.getRentalDate().getMonthValue());
 		assertNotNull(rental.getReturnDate());
+	}
+
+	@Test
+	void test_Rental_Staff_ManyToOne_relationship_mapping() {
+		assertNotNull(rental);
+		assertNotNull(rental.getStaff());
+		assertEquals("William", rental.getStaff().getFirstName());
+		assertEquals("Tingvold", rental.getStaff().getLastName());
+	}
+
+	@Test
+	void test_Rental_Customer_ManyToOne_relationship_mapping() {
+		assertNotNull(rental);
+		assertNotNull(rental.getCustomer());
+		assertEquals("Charlotte", rental.getCustomer().getFirstName());
+		assertEquals("Hunter", rental.getCustomer().getLastName());
 	}
 
 }

@@ -9,11 +9,13 @@
 		
 		<class>com.skilldistillery.jpavideostore.entities.Actor</class>
 		<class>com.skilldistillery.jpavideostore.entities.Address</class>
+		<class>com.skilldistillery.jpavideostore.entities.Country</class>
 		<class>com.skilldistillery.jpavideostore.entities.Customer</class>
 		<class>com.skilldistillery.jpavideostore.entities.Film</class>
 		<class>com.skilldistillery.jpavideostore.entities.Language</class>
 		<class>com.skilldistillery.jpavideostore.entities.Rental</class>
 		<class>com.skilldistillery.jpavideostore.entities.Staff</class>
+		<class>com.skilldistillery.jpavideostore.entities.Store</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sdvid?useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=US/Mountain" />

@@ -47,4 +47,11 @@ class AddressTest {
 		assertEquals("Lethbridge", addr.getCity());
 	}
 
+
+	@Test
+	void test_Address_Country_ManyToOne_relationship_mapping() {
+		assertNotNull(addr);
+		assertNotNull(addr.getCountry());
+		assertEquals("Canada", addr.getCountry().getName());
+	}
 }

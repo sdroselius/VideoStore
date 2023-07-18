@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Rental {
@@ -19,6 +21,14 @@ public class Rental {
 	private LocalDateTime rentalDate;
 	@Column(name = "return_date")
 	private LocalDateTime returnDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "staff_id")
+	private Staff staff;
+	
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
 	
 	public Rental() {
 		super();
@@ -46,6 +56,22 @@ public class Rental {
 
 	public void setReturnDate(LocalDateTime returnDate) {
 		this.returnDate = returnDate;
+	}
+
+	public Staff getStaff() {
+		return staff;
+	}
+
+	public void setStaff(Staff staff) {
+		this.staff = staff;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
