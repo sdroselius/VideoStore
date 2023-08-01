@@ -1,5 +1,7 @@
 package com.skilldistillery.jpavideostore.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Staff {
@@ -31,6 +34,14 @@ public class Staff {
 	@ManyToOne
 	@JoinColumn(name = "store_id")
 	private Store store;
+	
+	@ManyToOne
+	@JoinColumn(name = "supervisor_id")
+	private Staff supervisor;
+	
+	@OneToMany(mappedBy = "supervisor")
+	private List<Staff> supervisees;
+	// TODO add/remove methods??
 
 	public Staff() {
 		super();
@@ -106,6 +117,22 @@ public class Staff {
 
 	public void setStore(Store store) {
 		this.store = store;
+	}
+
+	public Staff getSupervisor() {
+		return supervisor;
+	}
+
+	public void setSupervisor(Staff supervisor) {
+		this.supervisor = supervisor;
+	}
+
+	public List<Staff> getSupervisees() {
+		return supervisees;
+	}
+
+	public void setSupervisees(List<Staff> supervisees) {
+		this.supervisees = supervisees;
 	}
 
 	@Override

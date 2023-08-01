@@ -67,4 +67,18 @@ class RentalTest {
 		assertEquals("Hunter", rental.getCustomer().getLastName());
 	}
 
+	@Test
+	void test_Rental_InventoryItem_ManyToOne_relationship_mapping() {
+		assertNotNull(rental);
+		assertNotNull(rental.getInventoryItem());
+		assertEquals(14072, rental.getInventoryItem().getId());
+	}
+	
+	@Test
+	void test_Rental_Payment_OneToMany_relationship_mapping() {
+		assertNotNull(rental);
+		assertNotNull(rental.getPayments());
+		assertTrue(rental.getPayments().size() > 0);
+	}
+	
 }

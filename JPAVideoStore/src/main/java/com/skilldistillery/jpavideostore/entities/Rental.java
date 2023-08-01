@@ -1,6 +1,9 @@
 package com.skilldistillery.jpavideostore.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Rental {
@@ -29,6 +33,14 @@ public class Rental {
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
+	
+	@ManyToOne
+	@JoinColumn(name = "inventory_id")
+	private InventoryItem inventoryItem;
+	
+	@OneToMany(mappedBy = "rental")
+	private List<Payment> payments;
+	//TODO - add/remove methods? YES!
 	
 	public Rental() {
 		super();
@@ -72,6 +84,54 @@ public class Rental {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public InventoryItem getInventoryItem() {
+		return inventoryItem;
+	}
+
+	public void setInventoryItem(InventoryItem inventoryItem) {
+		this.inventoryItem = inventoryItem;
+	}
+
+	public List<Payment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
+	}
+
+	public void addPayment(Payment payment) {
+		if ( payments == null) { payments = new ArrayList<>(); }
+		if ( ! payments.contains(payment) ) {
+			payments.add(payment);
+			payment.setRental(this);
+		}
+	}
+	
+	public void removePayment(Payment payment) {
+		if ( payments != null && payments.contains(payment)) {
+			payments.remove(payment);
+			payment.setRental(null);
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Rental other = (Rental) obj;
+		return id == other.id;
 	}
 
 	@Override

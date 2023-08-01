@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ActorTest {
+class CategoryTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Actor actor;
+	private Category cat;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,27 +31,26 @@ class ActorTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		actor = em.find(Actor.class, 1);
+		cat = em.find(Category.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		actor = null;
+		cat = null;
 	}
 
 	@Test
-	void test_Actor_entity_mapping() {
-		assertNotNull(actor);
-		assertEquals("Penelope", actor.getFirstName());
+	void test_Category_entity_mapping() {
+		assertNotNull(cat);
+		assertEquals("Action", cat.getName());
 	}
 
 	@Test
-	void test_Actor_Film_ManyToMany_relationship_mapping() {
-		assertNotNull(actor);
-		assertNotNull(actor.getFilms());
-		assertTrue(actor.getFilms().size() > 0);
-//		assertEquals(19, actor.getFilms().size());
+	void test_Category_Film_ManyToMany_mapping() {
+		assertNotNull(cat);
+		assertNotNull(cat.getFilms());
+		assertTrue(cat.getFilms().size() > 0);
 	}
 	
 }

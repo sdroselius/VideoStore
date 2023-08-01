@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ActorTest {
+class PaymentTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Actor actor;
+	private Payment payment;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,27 +31,33 @@ class ActorTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		actor = em.find(Actor.class, 1);
+		payment = em.find(Payment.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		actor = null;
+		payment = null;
 	}
 
-	@Test
-	void test_Actor_entity_mapping() {
-		assertNotNull(actor);
-		assertEquals("Penelope", actor.getFirstName());
-	}
+//	| id | rental_id | amount | payment_date        |
+//	+----+-----------+--------+---------------------+
+//	|  1 |        76 |   2.99 | 2014-05-25 11:30:37 |
 
 	@Test
-	void test_Actor_Film_ManyToMany_relationship_mapping() {
-		assertNotNull(actor);
-		assertNotNull(actor.getFilms());
-		assertTrue(actor.getFilms().size() > 0);
-//		assertEquals(19, actor.getFilms().size());
+	void test_Payment_entity_mapping() {
+		assertNotNull(payment);
+		assertEquals(2.99, payment.getAmount());
+		assertNotNull(payment.getPaymentDate());
+		assertEquals(2014, payment.getPaymentDate().getYear());
+		assertEquals(5, payment.getPaymentDate().getMonthValue());
 	}
 	
+	@Test
+	void test_Payment_Rental_ManyToOne_mapping() {
+		assertNotNull(payment);
+		assertNotNull(payment.getRental());
+		assertEquals(76, payment.getRental().getId());
+	}
+
 }

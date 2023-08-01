@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,33 +13,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Actor {
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "first_name")
-	private String firstName;
-	@Column(name = "last_name")
-	private String lastName;
-	
+	private String name;
+
 	@ManyToMany
-	@JoinTable(
-			name = "film_actor",
-			joinColumns = @JoinColumn(name = "actor_id"),
-			inverseJoinColumns = @JoinColumn(name = "film_id")
-	)
+	@JoinTable(name = "film_category", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
 	private List<Film> films;
 
-	public Actor() {
-		super();
-	}
-
-	public Actor(String firstName, String lastName) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public Category() {
 	}
 
 	public int getId() {
@@ -51,20 +36,12 @@ public class Actor {
 		this.id = id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<Film> getFilms() {
@@ -74,19 +51,19 @@ public class Actor {
 	public void setFilms(List<Film> films) {
 		this.films = films;
 	}
-	
+
 	public void addFilm(Film film) {
-		if ( films == null ) { films = new ArrayList<>(); }
-		if ( ! films.contains(film) ) {
+		if ( films == null) {films = new ArrayList<>(); }
+		if ( ! films.contains(film)) {
 			films.add(film);
-			film.addActor(this);
+			film.addCategory(this);
 		}
 	}
-	
+
 	public void removeFilm(Film film) {
-		if ( films != null && films.contains(film) ) {
+		if (films != null && films.contains(film)) {
 			films.remove(film);
-			film.removeActor(this);
+			film.removeCategory(this);
 		}
 	}
 
@@ -103,15 +80,14 @@ public class Actor {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Actor other = (Actor) obj;
+		Category other = (Category) obj;
 		return id == other.id;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Actor [id=").append(id).append(", firstName=").append(firstName).append(", lastName=")
-				.append(lastName).append("]");
+		builder.append("Category [id=").append(id).append(", name=").append(name).append("]");
 		return builder.toString();
 	}
 

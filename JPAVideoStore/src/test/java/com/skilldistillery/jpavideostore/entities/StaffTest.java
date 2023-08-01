@@ -61,5 +61,26 @@ class StaffTest {
 		assertNotNull(emp.getStore());
 		assertEquals(4, emp.getStore().getId());
 	}
+	
+	@Test
+	void test_Staff_supervisor_ManyToOne_mapping_no_supervisor() {
+		assertNotNull(emp);
+		assertNull(emp.getSupervisor());
+	}
 
+	@Test
+	void test_Staff_supervisor_ManyToOne_mapping_with_supervisor() {
+		emp = em.find(Staff.class, 10);
+		assertNotNull(emp);
+		assertNotNull(emp.getSupervisor());
+		assertEquals(54, emp.getSupervisor().getId());
+	}
+	
+	@Test
+	void test_Staff_supervisee_OneToMany_mapping_with_supervisees() {
+		assertNotNull(emp);
+		assertNotNull(emp.getSupervisees());
+		assertTrue(emp.getSupervisees().size() > 0);
+	}
+	
 }
